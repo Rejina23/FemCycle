@@ -14,3 +14,29 @@ class UserData(models.Model):
     total_days_of_fertility = models.IntegerField()
     total_fertility_formula = models.IntegerField(default=0)
     bmi = models.IntegerField(default=0)
+
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    age = models.IntegerField()
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    phone_number = models.PositiveIntegerField()
+    profile_pic = models.ImageField(upload_to='')
+
+    def __str__(self):
+        return self.user.username
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    age = models.IntegerField()
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    phone_number = models.PositiveIntegerField()
+    profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username

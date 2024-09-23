@@ -10,6 +10,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
+from .models import Profile
+from .serializers import ProfileSerializer
+from rest_framework.permissions import IsAuthenticated
+
 
 class UserDataViewSet(viewsets.ModelViewSet):
     queryset = UserData.objects.all()
@@ -76,3 +80,10 @@ class UserLoginView(APIView):
                 return Response({'detail': "Logged in successfully!"}, status=status.HTTP_200_OK)
             return Response({'error': 'Invalid login credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
